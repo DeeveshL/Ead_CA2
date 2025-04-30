@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888927718003",
+    "project_id": "pokemonpokethelper",
+    "storage_bucket": "pokemonpokethelper.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888927718003:android:92abb4984a02e0a03ef806",
+        "android_client_info": {
+          "package_name": "com.example.pokemonpokethelper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPCmLkdqR21lMzpZmj3Ym8njpgEwBT8wU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

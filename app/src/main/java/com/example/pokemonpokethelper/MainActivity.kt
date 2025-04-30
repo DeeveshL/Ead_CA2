@@ -270,36 +270,64 @@ fun CollectionsScreen(
     onCreateCollection: () -> Unit,
     onOpenCollection: (String) -> Unit
 ) {
+    // 1) Firestore flow & state
     val collectionsFlow = remember { FirestoreRepo.getCollections() }
     val snapshots by collectionsFlow.collectAsState(initial = null)
 
+    // 2) Search query state
+    var searchQuery by remember { mutableStateOf("") }
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Your Collections") }) },
+        topBar = {
+            TopAppBar(title = { Text("Your Collections") })
+        },
         floatingActionButton = {
             FloatingActionButton(onClick = onCreateCollection) {
                 Icon(Icons.Default.Add, contentDescription = "New")
             }
         }
     ) { padding ->
-        val docs: List<DocumentSnapshot> = snapshots?.documents ?: emptyList()
-
-        LazyColumn(
-            modifier = Modifier.padding(padding)
+        Column(Modifier
+            .padding(padding)
+            .fillMaxSize()
+            .padding(16.dp)       // inner padding
         ) {
-            // this is the correct items(...) call
-            items(docs) { doc ->
-                val name = doc.getString("name") ?: "Untitled"
-                ListItem(
-                    headlineContent = { Text(name) },
-                    modifier = Modifier
-                        .clickable { onOpenCollection(doc.id) }
-                        .fillMaxWidth()
-                )
-                HorizontalDivider()
+            // 3) Search bar
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search collections") },
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+            )
+
+            // 4) Filter the documents
+            val docs = snapshots?.documents ?: emptyList()
+            val filtered = if (searchQuery.isBlank()) docs
+            else docs.filter { doc ->
+                val name = doc.getString("name") ?: ""
+                name.contains(searchQuery, ignoreCase = true)
+            }
+
+            // 5) Display
+            LazyColumn {
+                items(filtered) { doc ->
+                    val name = doc.getString("name") ?: "Untitled"
+                    ListItem(
+                        modifier        = Modifier
+                            .clickable { onOpenCollection(doc.id) }
+                            .fillMaxWidth(),
+                        headlineContent = { Text(name) }
+                    )
+                    HorizontalDivider()
+                }
             }
         }
     }
 }
+
 
 
 @Composable
@@ -353,11 +381,18 @@ fun CardsScreen(
     onAddCard: () -> Unit,
     onBack: () -> Unit
 ) {
+    // 1) Firestore flow & state
     val cardsFlow    = remember { FirestoreRepo.getCards(collectionId) }
     val snapshots    by cardsFlow.collectAsState(initial = null)
-    val scope        = rememberCoroutineScope()
-    var deletingId   by remember { mutableStateOf<String?>(null) }
-    var isDeleting   by remember { mutableStateOf(false) }
+    val docs         = snapshots?.documents ?: emptyList()
+
+    // 2) Search-state
+    var searchQuery by remember { mutableStateOf("") }
+
+    // 3) Delete-state
+    var deletingId by remember { mutableStateOf<String?>(null) }
+    var isDeleting by remember { mutableStateOf(false) }
+    val scope      = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -365,7 +400,7 @@ fun CardsScreen(
                 title = { Text("Cards") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -376,65 +411,85 @@ fun CardsScreen(
             }
         }
     ) { padding ->
-        val docs = snapshots?.documents ?: emptyList()
-
-        LazyColumn(
-            modifier = Modifier
+        Column(
+            Modifier
                 .padding(padding)
                 .fillMaxSize()
+                .padding(16.dp)
         ) {
-            items(docs) { doc ->
-                val name        = doc.getString("name")        ?: ""
-                val expansion   = doc.getString("expansion")   ?: ""
-                val expansionId = doc.getLong("expansionId")?.toInt() ?: 0
+            // ── Search Bar ───────────────────────────────
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search cards") },
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+            )
 
-                ListItem(
-                    modifier          = Modifier.fillMaxWidth(),
-                    headlineContent   = { Text(name) },
-                    supportingContent = {
-                        Column {
-                            Text("Expansion: $expansion", style = MaterialTheme.typography.bodyMedium)
-                            Text("ID: $expansionId",    style = MaterialTheme.typography.bodyMedium)
+            // ── Filtered List ────────────────────────────
+            val filtered = if (searchQuery.isBlank()) docs
+            else docs.filter { doc ->
+                val name      = doc.getString("name") ?: ""
+                val expansion = doc.getString("expansion") ?: ""
+                name.contains(searchQuery, ignoreCase = true) ||
+                        expansion.contains(searchQuery, ignoreCase = true)
+            }
+
+            LazyColumn {
+                items(filtered) { doc ->
+                    val id          = doc.id
+                    val name        = doc.getString("name")      ?: ""
+                    val expansion   = doc.getString("expansion") ?: ""
+                    val expansionId = doc.getLong("expansionId")?.toInt() ?: 0
+
+                    ListItem(
+                        modifier          = Modifier.fillMaxWidth(),
+                        headlineContent   = { Text(name) },
+                        supportingContent = {
+                            Column {
+                                Text("Expansion: $expansion")
+                                Text("ID: $expansionId")
+                            }
+                        },
+                        trailingContent   = {
+                            IconButton(onClick = { deletingId = id }) {
+                                Icon(Icons.Default.Delete, contentDescription = "Delete")
+                            }
                         }
-                    },
-                    trailingContent   = {
-                        IconButton(onClick = { deletingId = doc.id }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Delete")
-                        }
-                    }
-                )
-                HorizontalDivider()
+                    )
+                    Divider()
+                }
             }
         }
 
-
-        // Confirmation dialog
+        // ── Confirmation Dialog ───────────────────────
         if (deletingId != null) {
             AlertDialog(
                 onDismissRequest = { if (!isDeleting) deletingId = null },
                 title   = { Text("Delete this card?") },
-                text    = { Text("This cannot be undone.") },
+                text    = { Text("This action cannot be undone.") },
                 confirmButton = {
-                    TextButton(onClick = {
-                        // launch deletion safely
-                        scope.launch {
-                            isDeleting = true
-                            try {
-                                FirestoreRepo.deleteCard(collectionId, deletingId!!)
-                            } catch (e: Exception) {
-                                // TODO: show error to user
+                    TextButton(
+                        onClick = {
+                            scope.launch {
+                                isDeleting = true
+                                try {
+                                    FirestoreRepo.deleteCard(collectionId, deletingId!!)
+                                } catch (e: Exception) {
+                                    // TODO: Show error Snackbar
+                                }
+                                isDeleting = false
+                                deletingId = null
                             }
-                            isDeleting = false
-                            deletingId = null
                         }
-                    }) {
+                    ) {
                         Text(if (isDeleting) "Deleting…" else "Delete")
                     }
                 },
                 dismissButton = {
-                    TextButton(onClick = {
-                        if (!isDeleting) deletingId = null
-                    }) {
+                    TextButton(onClick = { if (!isDeleting) deletingId = null }) {
                         Text("Cancel")
                     }
                 }

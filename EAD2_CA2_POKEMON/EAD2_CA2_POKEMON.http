@@ -1,0 +1,6 @@
+@EAD2_CA2_POKEMON_HostAddress = http://localhost:5225
+
+GET {{EAD2_CA2_POKEMON_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

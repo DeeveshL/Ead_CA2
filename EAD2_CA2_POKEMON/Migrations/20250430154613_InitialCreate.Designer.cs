@@ -27,7 +27,7 @@ namespace EAD2_CA2_POKEMON.Migrations
                     b.Property<Guid>("CardId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirebaseUserId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -66,7 +66,7 @@ namespace EAD2_CA2_POKEMON.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirebaseUserId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -174,14 +174,14 @@
         }
       }
     },
-    "/api/users/{firebaseUserId}/collections": {
+    "/api/users/{UserId}/collections": {
       "post": {
         "tags": [
           "Collections"
         ],
         "parameters": [
           {
-            "name": "firebaseUserId",
+            "name": "UserId",
             "in": "path",
             "required": true,
             "schema": {
@@ -220,7 +220,7 @@
         ],
         "parameters": [
           {
-            "name": "firebaseUserId",
+            "name": "UserId",
             "in": "path",
             "required": true,
             "schema": {
@@ -261,14 +261,14 @@
         }
       }
     },
-    "/api/users/{firebaseUserId}/collections/{collectionName}": {
+    "/api/users/{UserId}/collections/{collectionName}": {
       "get": {
         "tags": [
           "Collections"
         ],
         "parameters": [
           {
-            "name": "firebaseUserId",
+            "name": "UserId",
             "in": "path",
             "required": true,
             "schema": {
@@ -308,14 +308,14 @@
         }
       }
     },
-    "/api/users/{firebaseUserId}/collections/{collectionName}/cards": {
+    "/api/users/{UserId}/collections/{collectionName}/cards": {
       "post": {
         "tags": [
           "Collections"
         ],
         "parameters": [
           {
-            "name": "firebaseUserId",
+            "name": "UserId",
             "in": "path",
             "required": true,
             "schema": {
@@ -403,7 +403,7 @@
             "type": "string",
             "nullable": true
           },
-          "firebaseUserId": {
+          "userId": {
             "type": "string",
             "nullable": true
           },
@@ -428,7 +428,7 @@
             "type": "string",
             "format": "uuid"
           },
-          "firebaseUserId": {
+          "userId": {
             "type": "string",
             "nullable": true
           },

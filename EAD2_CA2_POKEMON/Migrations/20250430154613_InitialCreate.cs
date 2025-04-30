@@ -31,7 +31,7 @@ namespace EAD2_CA2_POKEMON.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    FirebaseUserId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace EAD2_CA2_POKEMON.Migrations
                 {
                     CollectionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CardId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FirebaseUserId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

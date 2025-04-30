@@ -100,13 +100,13 @@
   {
     "ContainingType": "CollectionsController",
     "Method": "CreateCollection",
-    "RelativePath": "api/users/{firebaseUserId}/collections",
+    "RelativePath": "api/users/{UserId}/collections",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "firebaseUserId",
+        "Name": "UserId",
         "Type": "System.String",
         "IsRequired": true
       },
@@ -121,13 +121,13 @@
   {
     "ContainingType": "CollectionsController",
     "Method": "GetCollections",
-    "RelativePath": "api/users/{firebaseUserId}/collections",
+    "RelativePath": "api/users/{UserId}/collections",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "firebaseUserId",
+        "Name": "UserId",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -147,13 +147,13 @@
   {
     "ContainingType": "CollectionsController",
     "Method": "GetCollection",
-    "RelativePath": "api/users/{firebaseUserId}/collections/{collectionName}",
+    "RelativePath": "api/users/{UserId}/collections/{collectionName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "firebaseUserId",
+        "Name": "UserId",
         "Type": "System.String",
         "IsRequired": true
       },
@@ -178,13 +178,13 @@
   {
     "ContainingType": "CollectionsController",
     "Method": "AddCardToCollection",
-    "RelativePath": "api/users/{firebaseUserId}/collections/{collectionName}/cards",
+    "RelativePath": "api/users/{UserId}/collections/{collectionName}/cards",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "firebaseUserId",
+        "Name": "UserId",
         "Type": "System.String",
         "IsRequired": true
       },

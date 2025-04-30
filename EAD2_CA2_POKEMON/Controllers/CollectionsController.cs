@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using EAD2_CA2_POKEMON.Models;
 
 [ApiController]
-[Route("api/users/{firebaseUserId}/collections")]
+[Route("api/users/{UserId}/collections")]
 public class CollectionsController : ControllerBase
 {
     private readonly AppDbContext _context;
@@ -13,62 +13,62 @@ public class CollectionsController : ControllerBase
         _context = context;
     }
 
-    // POST: api/users/{firebaseUserId}/collections
+    // POST: api/users/{UserId}/collections
     [HttpPost]
-    public async Task<IActionResult> CreateCollection(string firebaseUserId, [FromBody] Collection collection)
+    public async Task<IActionResult> CreateCollection(string UserId, [FromBody] Collection collection)
     {
         bool exists = await _context.Collections.AnyAsync(c =>
-            c.FirebaseUserId == firebaseUserId &&
+            c.UserId == UserId &&
             c.Name == collection.Name);
 
         if (exists)
             return Conflict("Collection already exists");
 
         collection.Id = Guid.NewGuid();
-        collection.FirebaseUserId = firebaseUserId;
+        collection.UserId = UserId;
 
         _context.Collections.Add(collection);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetCollection), new { firebaseUserId, collectionName = collection.Name }, collection);
+        return CreatedAtAction(nameof(GetCollection), new { UserId, collectionName = collection.Name }, collection);
     }
 
-    // GET: api/users/{firebaseUserId}/collections
+    // GET: api/users/{UserId}/collections
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Collection>>> GetCollections(string firebaseUserId)
+    public async Task<ActionResult<IEnumerable<Collection>>> GetCollections(string UserId)
     {
         return await _context.Collections
-            .Where(c => c.FirebaseUserId == firebaseUserId)
+            .Where(c => c.UserId == UserId)
             .ToListAsync();
     }
 
-    // GET: api/users/{firebaseUserId}/collections/{collectionName}
+    // GET: api/users/{UserId}/collections/{collectionName}
     [HttpGet("{collectionName}")]
-    public async Task<ActionResult<Collection>> GetCollection(string firebaseUserId, string collectionName)
+    public async Task<ActionResult<Collection>> GetCollection(string UserId, string collectionName)
     {
         var collection = await _context.Collections
             .Include(c => c.CollectionCards)
             .ThenInclude(cc => cc.Card)
             .FirstOrDefaultAsync(c =>
-                c.FirebaseUserId == firebaseUserId &&
+                c.UserId == UserId &&
                 c.Name == collectionName);
 
         if (collection == null) return NotFound();
         return collection;
     }
 
-    // POST: api/users/{firebaseUserId}/collections/{collectionName}/cards
+    // POST: api/users/{UserId}/collections/{collectionName}/cards
     [HttpPost("{collectionName}/cards")]
-    public async Task<IActionResult> AddCardToCollection(string firebaseUserId, string collectionName, [FromBody] Guid cardId)
+    public async Task<IActionResult> AddCardToCollection(string UserId, string collectionName, [FromBody] Guid cardId)
     {
         var collection = await _context.Collections.FirstOrDefaultAsync(c =>
-            c.FirebaseUserId == firebaseUserId && c.Name == collectionName);
+            c.UserId == UserId && c.Name == collectionName);
 
         if (collection == null)
             return NotFound("Collection not found");
 
         bool alreadyExists = await _context.CollectionCards.AnyAsync(cc =>
-            cc.FirebaseUserId == firebaseUserId &&
+            cc.UserId == UserId &&
             cc.CollectionId == collection.Id &&
             cc.CardId == cardId);
 
@@ -77,7 +77,7 @@ public class CollectionsController : ControllerBase
 
         var join = new CollectionCard
         {
-            FirebaseUserId = firebaseUserId,
+            UserId = UserId,
             CollectionId = collection.Id,
             CardId = cardId
         };

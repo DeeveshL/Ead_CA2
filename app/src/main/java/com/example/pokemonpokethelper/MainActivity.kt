@@ -34,6 +34,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.HorizontalDivider
 
 
 import com.example.pokemonpokethelper.ui.theme.PokemonPoketHelperTheme
@@ -364,7 +365,7 @@ fun CardsScreen(
                 title = { Text("Cards") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -383,29 +384,29 @@ fun CardsScreen(
                 .fillMaxSize()
         ) {
             items(docs) { doc ->
-                val id     = doc.id
-                val name   = doc.getString("name")   ?: ""
-                val type   = doc.getString("type")   ?: ""
-                val rarity = doc.getString("rarity") ?: ""
+                val name        = doc.getString("name")        ?: ""
+                val expansion   = doc.getString("expansion")   ?: ""
+                val expansionId = doc.getLong("expansionId")?.toInt() ?: 0
 
                 ListItem(
                     modifier          = Modifier.fillMaxWidth(),
                     headlineContent   = { Text(name) },
                     supportingContent = {
                         Column {
-                            Text("Type: $type", style = MaterialTheme.typography.bodyMedium)
-                            Text("Rarity: $rarity", style = MaterialTheme.typography.bodyMedium)
+                            Text("Expansion: $expansion", style = MaterialTheme.typography.bodyMedium)
+                            Text("ID: $expansionId",    style = MaterialTheme.typography.bodyMedium)
                         }
                     },
-                    trailingContent = {
-                        IconButton(onClick = { deletingId = id }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Delete Card")
+                    trailingContent   = {
+                        IconButton(onClick = { deletingId = doc.id }) {
+                            Icon(Icons.Default.Delete, contentDescription = "Delete")
                         }
                     }
                 )
-                Divider()
+                HorizontalDivider()
             }
         }
+
 
         // Confirmation dialog
         if (deletingId != null) {
@@ -449,11 +450,11 @@ fun AddCardScreen(
     collectionId: String,
     onDone: () -> Unit
 ) {
-    var name   by remember { mutableStateOf("") }
-    var type   by remember { mutableStateOf("") }
-    var rarity by remember { mutableStateOf("") }
-    var saving by remember { mutableStateOf(false) }
-    val scope  = rememberCoroutineScope()
+    var name         by remember { mutableStateOf("") }
+    var expansion    by remember { mutableStateOf("") }
+    var expansionId  by remember { mutableStateOf("") }  // temporarily as String
+    var saving       by remember { mutableStateOf(false) }
+    val scope        = rememberCoroutineScope()
 
     Column(
         Modifier
@@ -471,37 +472,43 @@ fun AddCardScreen(
         )
 
         OutlinedTextField(
-            value       = type,
-            onValueChange = { type = it },
-            label       = { Text("Type") },
+            value       = expansion,
+            onValueChange = { expansion = it },
+            label       = { Text("Expansion") },
             modifier    = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value       = rarity,
-            onValueChange = { rarity = it },
-            label       = { Text("Rarity") },
-            modifier    = Modifier.fillMaxWidth()
+            value       = expansionId,
+            onValueChange = { expansionId = it.filter { it.isDigit() } },
+            label       = { Text("Expansion ID") },
+            modifier    = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         Spacer(Modifier.height(8.dp))
 
         Button(
             onClick = {
+                val expId = expansionId.toIntOrNull() ?: 0
                 saving = true
                 scope.launch {
-                    FirestoreRepo.addCard(collectionId, name, type, rarity)
+                    FirestoreRepo.addCard(collectionId, name, expansion, expId)
                     saving = false
                     onDone()
                 }
             },
-            enabled  = name.isNotBlank() && type.isNotBlank() && rarity.isNotBlank() && !saving,
+            enabled  = name.isNotBlank()
+                    && expansion.isNotBlank()
+                    && expansionId.isNotBlank()
+                    && !saving,
             modifier = Modifier.align(Alignment.End)
         ) {
             Text(if (saving) "Saving…" else "Add Card")
         }
     }
 }
+
 
 
 

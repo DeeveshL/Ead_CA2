@@ -39,14 +39,14 @@ object FirestoreRepo {
     suspend fun addCard(
         collectionId: String,
         name: String,
-        type: String,
-        rarity: String
+        expansion: String,
+        expansionId: Int
     ) {
         val data = mapOf(
-            "name"      to name,
-            "type"      to type,
-            "rarity"    to rarity,
-            "createdAt" to FieldValue.serverTimestamp()
+            "name"        to name,
+            "expansion"   to expansion,
+            "expansionId" to expansionId,
+            "createdAt"   to FieldValue.serverTimestamp()
         )
         db.collection("collections")
             .document(collectionId)

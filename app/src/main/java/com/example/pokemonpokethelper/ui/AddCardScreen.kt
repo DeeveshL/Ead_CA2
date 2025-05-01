@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.pokemonpokethelper.data.FirestoreRepo
@@ -27,6 +28,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import com.example.pokemonpokethelper.R
 
 @Composable
 fun AddCardScreen(
@@ -55,7 +57,7 @@ fun AddCardScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text("New Card", style = MaterialTheme.typography.headlineSmall)
+        Text("New Card")
 
         OutlinedTextField(
             value = name,
@@ -91,7 +93,7 @@ fun AddCardScreen(
             },
             enabled = cardId.isNotBlank()
         ) {
-            Text("Text(stringResource(R.string.")
+            Text(stringResource(R.string.cancel))
         }
     }
 

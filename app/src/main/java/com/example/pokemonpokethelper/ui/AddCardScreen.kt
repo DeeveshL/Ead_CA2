@@ -57,26 +57,26 @@ fun AddCardScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text("New Card")
+        Text(stringResource(R.string.new_card))
 
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") },
+            label = { Text(stringResource(R.string.name)) },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = expansion,
             onValueChange = { expansion = it },
-            label = { Text("Expansion") },
+            label = { Text(stringResource(R.string.expansion)) },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = expansionId,
             onValueChange = { expansionId = it.filter { it.isDigit() } },
-            label = { Text("Expansion ID") },
+            label = { Text(stringResource(R.string.expansion_id)) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )

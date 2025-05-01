@@ -14,11 +14,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.example.pokemonpokethelper.R
 
 @Composable
 fun SignUpScreen(onSignUpSuccess: () -> Unit) {
@@ -28,14 +30,14 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit) {
     var errorMsg by remember { mutableStateOf<String?>(null) }
 
     Column(Modifier.fillMaxSize().padding(32.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("Sign Up", style = MaterialTheme.typography.headlineSmall)
+        Text(stringResource(R.string.sign_up), style = MaterialTheme.typography.headlineSmall)
 
         OutlinedTextField(value = email, onValueChange = { email = it },
-            label = { Text("Email") }, singleLine = true,
+            label = { Text(stringResource(R.string.email)) }, singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
         OutlinedTextField(value = password, onValueChange = { password = it },
-            label = { Text("Password") }, singleLine = true,
+            label = { Text(stringResource(R.string.password)) }, singleLine = true,
             visualTransformation = PasswordVisualTransformation()
         )
 
@@ -46,7 +48,7 @@ fun SignUpScreen(onSignUpSuccess: () -> Unit) {
                 .addOnSuccessListener { onSignUpSuccess() }
                 .addOnFailureListener { errorMsg = it.localizedMessage }
         }, Modifier.fillMaxWidth()) {
-            Text("Create Account")
+            Text(stringResource(R.string.create_account))
         }
     }
 }

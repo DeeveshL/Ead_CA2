@@ -16,7 +16,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.pokemonpokethelper.R
 import com.example.pokemonpokethelper.data.FirestoreRepo
 import kotlinx.coroutines.launch
 
@@ -32,12 +34,12 @@ fun AddCollectionScreen(onDone: () -> Unit) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text("New Collection", style = MaterialTheme.typography.headlineSmall)
+        Text(stringResource(R.string.new_collection), style = MaterialTheme.typography.headlineSmall)
 
         OutlinedTextField(
             value       = name,
             onValueChange = { name = it },
-            label       = { Text("Collection Name") },
+            label       = { Text(stringResource(R.string.collection_name)) },
             modifier    = Modifier.fillMaxWidth()
         )
 

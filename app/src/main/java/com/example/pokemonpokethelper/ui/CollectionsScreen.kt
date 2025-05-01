@@ -37,6 +37,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.pokemonpokethelper.data.AzureRepo
 import com.example.pokemonpokethelper.data.FirestoreRepo
 import com.example.pokemonpokethelper.network.CardDto
@@ -49,51 +51,81 @@ import kotlinx.coroutines.tasks.await
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CollectionsScreen(
+    navController: NavHostController,
     userId: String,
-    onCreateCollection: () -> Unit,
     onOpenCollection: (String) -> Unit
 ) {
-    // 1) State for your JWT
-    var jwtToken by remember { mutableStateOf<String?>(null) }
+    // 1) UI State
+    var collections by remember { mutableStateOf<List<CollectionDto>>(emptyList()) }
+    var isLoading   by remember { mutableStateOf(true) }
+    var jwtToken    by remember { mutableStateOf<String?>(null) }
+
+    // 2) Grab JWT once
     LaunchedEffect(Unit) {
         jwtToken = Firebase.auth.currentUser
             ?.getIdToken(false)
-            ?.await()    // kotlinx-coroutines-play-services
+            ?.await()
             ?.token
     }
 
-    // 2) State for your Azure collections
-    val cols by produceState<List<CollectionDto>>(emptyList(), jwtToken) {
-        jwtToken?.let { value = AzureRepo.getCollections(it, userId) }
+    // 3) Set up SavedStateHandle flow
+    val savedStateHandle = navController
+        .currentBackStackEntry!!
+        .savedStateHandle
+
+    // “refreshCollections” toggles when you pop back from AddCollectionScreen
+    val shouldRefresh by savedStateHandle
+        .getStateFlow("refreshCollections", false)
+        .collectAsState()
+
+    // 4) Reload whenever token arrives **or** shouldRefresh flips true
+    LaunchedEffect(jwtToken, shouldRefresh) {
+        val token = jwtToken ?: return@LaunchedEffect
+        isLoading = true
+        collections = try {
+            AzureRepo.getCollections(token, userId)
+        } catch (e: Exception) {
+            emptyList()
+        }
+        isLoading = false
+
+        // reset the flag so we don’t loop
+        if (shouldRefresh) {
+            savedStateHandle.set("refreshCollections", false)
+        }
     }
 
+    // 5) UI
     Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Your Collections") })
-        },
+        topBar = { TopAppBar(title = { Text("Your Collections") }) },
         floatingActionButton = {
-            FloatingActionButton(onClick = onCreateCollection) {
-                Icon(Icons.Default.Add, contentDescription = "New")
+            FloatingActionButton(onClick = { navController.navigate("addCollection") }) {
+                Icon(Icons.Default.Add, contentDescription = "New Collection")
             }
         }
     ) { padding ->
-        // Show a spinner until both token & data arrive
-        if (jwtToken == null) {
-            Box(
-                Modifier.fillMaxSize().padding(padding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn {
-                items(cols) { col ->
-                    ListItem(
-                        modifier = Modifier.clickable { onOpenCollection(col.name) },
-                        headlineContent = { Text(col.name) }
-                    )
+        Box(
+            Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(Modifier.align(Alignment.Center))
+            } else {
+                LazyColumn {
+                    items(collections) { col ->
+                        ListItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onOpenCollection(col.name) },
+                            headlineContent = { Text(col.name) }
+                        )
+                        Divider()
+                    }
                 }
             }
         }
     }
-    }
+}
+

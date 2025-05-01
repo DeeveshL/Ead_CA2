@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,18 +22,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.pokemonpokethelper.data.FirestoreRepo
+import com.example.pokemonpokethelper.data.RemoteRepo
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @Composable
 fun AddCardScreen(
-    collectionId: String,
+    userId: String,
+    collectionName: String,
     onDone: () -> Unit
 ) {
     var name         by remember { mutableStateOf("") }
     var expansion    by remember { mutableStateOf("") }
+    var cardId by remember { mutableStateOf("") }
     var expansionId  by remember { mutableStateOf("") }  // temporarily as String
     var saving       by remember { mutableStateOf(false) }
     val scope        = rememberCoroutineScope()
+    var jwtToken by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(Unit) {
+        jwtToken = Firebase.auth.currentUser
+            ?.getIdToken(false)
+            ?.await()
+            ?.token
+    }
 
     Column(
         Modifier
@@ -43,24 +58,24 @@ fun AddCardScreen(
         Text("New Card", style = MaterialTheme.typography.headlineSmall)
 
         OutlinedTextField(
-            value       = name,
+            value = name,
             onValueChange = { name = it },
-            label       = { Text("Name") },
-            modifier    = Modifier.fillMaxWidth()
+            label = { Text("Name") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value       = expansion,
+            value = expansion,
             onValueChange = { expansion = it },
-            label       = { Text("Expansion") },
-            modifier    = Modifier.fillMaxWidth()
+            label = { Text("Expansion") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value       = expansionId,
+            value = expansionId,
             onValueChange = { expansionId = it.filter { it.isDigit() } },
-            label       = { Text("Expansion ID") },
-            modifier    = Modifier.fillMaxWidth(),
+            label = { Text("Expansion ID") },
+            modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
@@ -68,21 +83,16 @@ fun AddCardScreen(
 
         Button(
             onClick = {
-                val expId = expansionId.toIntOrNull() ?: 0
-                saving = true
+                val token = jwtToken ?: return@Button
                 scope.launch {
-                    FirestoreRepo.addCard(collectionId, name, expansion, expId)
-                    saving = false
+                    RemoteRepo.addCard(token, userId, collectionName, cardId)
                     onDone()
                 }
             },
-            enabled  = name.isNotBlank()
-                    && expansion.isNotBlank()
-                    && expansionId.isNotBlank()
-                    && !saving,
-            modifier = Modifier.align(Alignment.End)
+            enabled = cardId.isNotBlank()
         ) {
-            Text(if (saving) "Saving…" else "Add Card")
+            Text("Add Card")
         }
     }
+
 }

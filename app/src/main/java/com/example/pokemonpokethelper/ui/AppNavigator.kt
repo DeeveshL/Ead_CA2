@@ -16,8 +16,8 @@ fun AppNavigator() {
     NavHost(navController = nav, startDestination = "collections") {
         composable("collections") {
             CollectionsScreen(
-                userId = currentUserId,
-                onCreateCollection = { nav.navigate("addCollection") },
+                navController      = nav,
+                userId             = currentUserId,
                 onOpenCollection   = { name -> nav.navigate("cards/$name") }
             )
         }
@@ -39,13 +39,15 @@ fun AppNavigator() {
               }
 
         composable(
-            "addCard/{collectionId}",
-            arguments = listOf(navArgument("collectionId") { type = NavType.StringType })
+            "addCard/{collectionName}",                                          // ① path segment name
+            arguments = listOf(navArgument("collectionName") { type = NavType.StringType })
         ) { backStack ->
-            val cid = backStack.arguments!!.getString("collectionId")!!
-            AddCardScreen(collectionId = cid) {
-                nav.popBackStack()
-            }
+            val collectionName = backStack.arguments!!.getString("collectionName")!!
+            AddCardScreen(
+                userId         = currentUserId,                                    // ② pass user
+                collectionName = collectionName,                                   // ③ pass name, not “cid”
+                onDone         = { nav.popBackStack() }
+            )
         }
     }
 }

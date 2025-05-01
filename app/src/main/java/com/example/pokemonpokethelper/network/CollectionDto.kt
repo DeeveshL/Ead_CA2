@@ -1,6 +1,7 @@
 package com.example.pokemonpokethelper.network
 
 data class CollectionDto(
-    val id: Int,
-    val name: String
+    val id: String,       // GUID
+    val name: String,
+    val userId: String
 )

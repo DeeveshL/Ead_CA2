@@ -49,6 +49,7 @@ import kotlinx.coroutines.tasks.await
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CollectionsScreen(
+    userId: String,
     onCreateCollection: () -> Unit,
     onOpenCollection: (String) -> Unit
 ) {
@@ -62,8 +63,8 @@ fun CollectionsScreen(
     }
 
     // 2) State for your Azure collections
-    val cols by produceState(initialValue = emptyList<CollectionDto>(), jwtToken) {
-        jwtToken?.let { value = AzureRepo.getCollections(it) }
+    val cols by produceState<List<CollectionDto>>(emptyList(), jwtToken) {
+        jwtToken?.let { value = AzureRepo.getCollections(it, userId) }
     }
 
     Scaffold(
@@ -85,25 +86,14 @@ fun CollectionsScreen(
                 CircularProgressIndicator()
             }
         } else {
-            LazyColumn(
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp)
-            ) {
+            LazyColumn {
                 items(cols) { col ->
                     ListItem(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                // pass the numeric Azure ID as a string
-                                onOpenCollection(col.id.toString())
-                            },
+                        modifier = Modifier.clickable { onOpenCollection(col.name) },
                         headlineContent = { Text(col.name) }
                     )
-                    HorizontalDivider()
                 }
             }
         }
     }
-}
+    }

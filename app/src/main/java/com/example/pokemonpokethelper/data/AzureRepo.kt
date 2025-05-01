@@ -7,49 +7,21 @@ import kotlinx.coroutines.withContext
 object AzureRepo {
     private val api = RetrofitClient.api
 
-    // ——— Collections ——————————————————————————————
+    suspend fun getCollections(token: String, userId: String) =
+        api.getCollections("Bearer $token", userId)
 
-    /** GET  /api/collections */
-    suspend fun getCollections(token: String): List<CollectionDto> =
-        withContext(Dispatchers.IO) {
-            api.getCollections("Bearer $token")
-        }
+    suspend fun createCollection(token: String, userId: String, name: String) =
+        api.createCollection("Bearer $token", userId, CreateCollectionRequest(name))
 
-    /** POST /api/collections */
-    suspend fun addCollection(token: String, name: String): CollectionDto =
-        withContext(Dispatchers.IO) {
-            api.addCollection("Bearer $token", AddCollectionRequest(name))
-        }
+    suspend fun getCollection(token: String, userId: String, name: String) =
+        api.getCollection("Bearer $token", userId, name)
 
-    // ——— Cards ——————————————————————————————————————
-
-    /** GET  /api/collections/{cid}/cards */
-    suspend fun getCards(token: String, collectionId: String): List<CardDto> =
-        withContext(Dispatchers.IO) {
-            api.getCards("Bearer $token", collectionId)
-        }
-
-    /** POST /api/collections/{cid}/cards */
-    suspend fun addCard(
+    suspend fun addCardToCollection(
         token: String,
-        collectionId: String,
-        name: String,
-        expansion: String,
-        expansionId: Int
-    ): Unit = withContext(Dispatchers.IO) {
-        api.addCard(
-            bearer     = "Bearer $token",
-            collectionId = collectionId,
-            payload    = AddCardRequest(name, expansion, expansionId)
-        )
-    }
-
-    /** DELETE /api/collections/{cid}/cards/{cardId} */
-    suspend fun deleteCard(
-        token: String,
-        collectionId: String,
+        userId: String,
+        collectionName: String,
         cardId: String
-    ): Unit = withContext(Dispatchers.IO) {
-        api.deleteCard("Bearer $token", collectionId, cardId)
-    }
+    ) = api.addCardToCollection("Bearer $token", userId, collectionName, cardId)
+
 }
+

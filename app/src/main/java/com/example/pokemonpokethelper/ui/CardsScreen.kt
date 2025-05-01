@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -29,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.pokemonpokethelper.data.FirestoreRepo
@@ -41,67 +44,43 @@ import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-
 fun CardsScreen(
-    collectionId: String,
+    userId: String,
+    collectionName: String,
     onAddCard: () -> Unit,
     onBack: () -> Unit
 ) {
-    // 1) Firestore flow & state
-    val cardsFlow    = remember { FirestoreRepo.getCards(collectionId) }
-    val snapshots    by cardsFlow.collectAsState(initial = null)
-    val docs         = snapshots?.documents ?: emptyList()
-
-    var cards by remember { mutableStateOf<List<CardDto>>(emptyList()) }
+    // 1) UI state
+    var cards     by remember { mutableStateOf<List<CardDto>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
+    var deleting  by remember { mutableStateOf<String?>(null) }
+    val scope     = rememberCoroutineScope()
 
-    // 2) Search-state
-    var searchQuery by remember { mutableStateOf("") }
-
-    // 3) Delete-state
-    var deletingId by remember { mutableStateOf<String?>(null) }
-    var isDeleting by remember { mutableStateOf(false) }
-    val scope      = rememberCoroutineScope()
-    var jwtToken = remember { "RemoteRepo.fetchCards(jwtToken!!, collectionId)" }
-
-
+    // 2) Fetch Firebase JWT once
+    var jwtToken by remember { mutableStateOf<String?>(null) }
     LaunchedEffect(Unit) {
-        Firebase.auth.currentUser
-            ?.getIdToken(false)            // false = don’t force-refresh if you already have one
-            ?.await()                      // from kotlinx-coroutines-play-services
-            ?.let { result ->
-                jwtToken = result.token.toString()      // this is your JWT
-            }
+        jwtToken = Firebase.auth.currentUser
+            ?.getIdToken(false)
+            ?.await()
+            ?.token
     }
-    LaunchedEffect(jwtToken, collectionId) {
-        val token = jwtToken ?: return@LaunchedEffect  // do nothing until non-null
+
+    // 3) As soon as we have token + collectionName, load cards
+    LaunchedEffect(jwtToken, collectionName) {
+        val token = jwtToken ?: return@LaunchedEffect
         isLoading = true
         cards = try {
-            RemoteRepo.fetchCards(token, collectionId)
+            RemoteRepo.fetchCards(token, userId, collectionName)
         } catch (e: Exception) {
             emptyList()
         }
         isLoading = false
     }
 
-    if (jwtToken == null) {
-        // you could show a spinner here…
-        CircularProgressIndicator()
-        return
-    }
-
-    // ④ Now jwtToken!! is safe to use
-    LaunchedEffect(jwtToken, collectionId) {
-        cards = RemoteRepo.fetchCards(jwtToken!!, collectionId)
-        isLoading = false
-    }
-
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Cards") },
+                title = { Text(collectionName) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -115,108 +94,51 @@ fun CardsScreen(
             }
         }
     ) { padding ->
-        Column(
-            Modifier
-                .padding(padding)
+        Box(
+            modifier = Modifier
                 .fillMaxSize()
+                .padding(padding)
                 .padding(16.dp)
         ) {
-            // ── Search Bar ───────────────────────────────
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Search cards") },
-                singleLine = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp)
-            )
-
-            // ── Filtered List ────────────────────────────
-            val filtered = if (searchQuery.isBlank()) docs
-            else docs.filter { doc ->
-                val name      = doc.getString("name") ?: ""
-                val expansion = doc.getString("expansion") ?: ""
-                name.contains(searchQuery, ignoreCase = true) ||
-                        expansion.contains(searchQuery, ignoreCase = true)
-            }
-
-            LazyColumn {
-                items(filtered) { doc ->
-                    val id          = doc.id
-                    val name        = doc.getString("name")      ?: ""
-                    val expansion   = doc.getString("expansion") ?: ""
-                    val expansionId = doc.getLong("expansionId")?.toInt() ?: 0
-
-                    ListItem(
-                        modifier          = Modifier.fillMaxWidth(),
-                        headlineContent   = { Text(name) },
-                        supportingContent = {
-                            Column {
-                                Text("Expansion: $expansion")
-                                Text("ID: $expansionId")
-                            }
-                        },
-                        trailingContent   = {
-                            IconButton(onClick = { deletingId = id }) {
-                                Icon(Icons.Default.Delete, contentDescription = "Delete")
-                            }
-                        }
-                    )
-                    HorizontalDivider()
-                }
-            }
-        }
-        if (isLoading) {
-            CircularProgressIndicator()
-        } else {
-            LazyColumn {
-                items(cards) { card ->
-                    Text("${card.name} (${card.expansion})")
-                    IconButton(onClick = {
-                        scope.launch {
-                            // ① pass jwtToken, ② collectionId, ③ card.id
-                            RemoteRepo.deleteCard(jwtToken!!, collectionId, card.id.toString())
-                            // then reload with the same two params
-                            cards = RemoteRepo.fetchCards(jwtToken!!, collectionId)
-                        }
-                    }) {
-                        Icon(Icons.Default.Delete, contentDescription = "Delete")
-                    }
-
-                }
-            }
-        }
-        // ── Confirmation Dialog ───────────────────────
-        if (deletingId != null) {
-            AlertDialog(
-                onDismissRequest = { if (!isDeleting) deletingId = null },
-                title   = { Text("Delete this card?") },
-                text    = { Text("This action cannot be undone.") },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            scope.launch {
-                                isDeleting = true
-                                try {
-                                    FirestoreRepo.deleteCard(collectionId, deletingId!!)
-                                } catch (e: Exception) {
-                                    // TODO: Show error Snackbar
+            if (isLoading) {
+                CircularProgressIndicator(Modifier.align(Alignment.Center))
+            } else {
+                LazyColumn {
+                    items(cards) { card ->
+                        ListItem(
+                            headlineContent   = { Text(card.name) },
+                            supportingContent = { Text("Expansion: ${card.expansion}") },
+                            trailingContent   = {
+                                IconButton(
+                                    onClick = { deleting = card.id.toString() }
+                                ) {
+                                    Icon(Icons.Default.Delete, contentDescription = "Delete")
                                 }
-                                isDeleting = false
-                                deletingId = null
                             }
-                        }
-                    ) {
-                        Text(if (isDeleting) "Deleting…" else "Delete")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { if (!isDeleting) deletingId = null }) {
-                        Text("Cancel")
+                        )
+                        Divider()
                     }
                 }
-            )
+            }
+
+            if (deleting != null && jwtToken != null) {
+                AlertDialog(
+                    onDismissRequest = { deleting = null },
+                    title   = { Text("Delete this card?") },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            scope.launch {
+                                RemoteRepo.deleteCard(jwtToken!!, userId, collectionName, deleting!!)
+                                cards = RemoteRepo.fetchCards(jwtToken!!, userId, collectionName)
+                                deleting = null
+                            }
+                        }) { Text("Delete") }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { deleting = null }) { Text("Cancel") }
+                    }
+                )
+            }
         }
     }
 }

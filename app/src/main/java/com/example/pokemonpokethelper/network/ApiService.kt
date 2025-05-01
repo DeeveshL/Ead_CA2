@@ -8,37 +8,44 @@ import com.example.pokemonpokethelper.network.AddCollectionRequest
 
 
 interface ApiService {
-    @GET("collections")
+    // GET  /api/users/{UserId}/collections
+    @GET("users/{userId}/collections")
     suspend fun getCollections(
-        @Header("Authorization") bearer: String
+        @Header("Authorization") bearer: String,
+        @Path("userId") userId: String
     ): List<CollectionDto>
 
-    @POST("collections")
-    suspend fun addCollection(
-        @Header("Authorization") bearer: String,
-        @Body payload: AddCollectionRequest
-    ): CollectionDto
-
-    // ——————————————————————————
-    // NOTE the uppercase “Cards” here to match your controller name
-    @GET("collections/{cid}/Cards")
+    @GET("users/{userId}/collections/{collectionName}/cards")
     suspend fun getCards(
         @Header("Authorization") bearer: String,
-        @Path("cid") collectionId: String
+        @Path("userId") userId: String,
+        @Path("collectionName") collectionName: String
     ): List<CardDto>
 
-    @POST("collections/{cid}/Cards")
-    suspend fun addCard(
+    // POST /api/users/{UserId}/collections
+    @POST("users/{userId}/collections")
+    suspend fun createCollection(
         @Header("Authorization") bearer: String,
-        @Path("cid") collectionId: String,
-        @Body payload: AddCardRequest
-    )
+        @Path("userId") userId: String,
+        @Body payload: CreateCollectionRequest
+    ): CollectionDto
 
-    @DELETE("collections/{cid}/Cards/{cardId}")
-    suspend fun deleteCard(
+    // GET  /api/users/{UserId}/collections/{collectionName}
+    @GET("users/{userId}/collections/{collectionName}")
+    suspend fun getCollection(
         @Header("Authorization") bearer: String,
-        @Path("cid") collectionId: String,
-        @Path("cardId") cardId: String
+        @Path("userId") userId: String,
+        @Path("collectionName") collectionName: String
+    ): CollectionDto
+
+    // POST /api/users/{UserId}/collections/{collectionName}/cards
+    // Body is a raw GUID string unless you wrapped it
+    @POST("users/{userId}/collections/{collectionName}/cards")
+    suspend fun addCardToCollection(
+        @Header("Authorization") bearer: String,
+        @Path("userId") userId: String,
+        @Path("collectionName") collectionName: String,
+        @Body cardId: String
     )
 }
 

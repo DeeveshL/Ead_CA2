@@ -91,7 +91,7 @@ fun AddCardScreen(
             },
             enabled = cardId.isNotBlank()
         ) {
-            Text("Add Card")
+            Text("Text(stringResource(R.string.")
         }
     }
 

@@ -36,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -47,6 +48,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import com.example.pokemonpokethelper.R
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,10 +100,10 @@ fun CollectionsScreen(
 
     // 5) UI
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Your Collections") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.your_collections)) }) },
         floatingActionButton = {
             FloatingActionButton(onClick = { navController.navigate("addCollection") }) {
-                Icon(Icons.Default.Add, contentDescription = "New Collection")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.new_collection))
             }
         }
     ) { padding ->
@@ -121,7 +124,7 @@ fun CollectionsScreen(
                                 .clickable { onOpenCollection(col.name) },
                             headlineContent = { Text(col.name) }
                         )
-                        Divider()
+                        HorizontalDivider()
                     }
                 }
             }

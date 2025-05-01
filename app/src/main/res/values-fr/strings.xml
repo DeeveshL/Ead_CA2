@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Assistant Pokémon Poket</string>
+    <string name="hello_world">Bonjour le monde !</string>
+    <string name="login">Connexion</string>
+    <string name="email">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="no_account">Pas de compte ? Inscrivez-vous</string>
+    <string name="sign_up">Inscription</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="new_collection">Nouvelle collection</string>
+    <string name="collection_name">Nom de la collection</string>
+    <string name="create">Créer</string>
+    <string name="your_collections">Vos collections</string>
+    <string name="new_card">Nouvelle carte</string>
+    <string name="name">Nom</string>
+    <string name="expansion">Extension</string>
+    <string name="expansion_id">ID d’extension</string>
+    <string name="add_card">Ajouter la carte</string>
+    <string name="search_collections">Rechercher des collections</string>
+    <string name="search_cards">Rechercher des cartes</string>
+    <string name="delete_dialog_title">Supprimer cette carte ?</string>
+    <string name="delete_dialog_confirm">Supprimer</string>
+    <string name="cancel">Annuler</string>
+</resources>

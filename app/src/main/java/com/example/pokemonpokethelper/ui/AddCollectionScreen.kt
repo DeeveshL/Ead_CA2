@@ -1,63 +1,64 @@
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+package com.example.pokemonpokethelper.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.pokemonpokethelper.R
-import com.example.pokemonpokethelper.data.FirestoreRepo
+import com.example.pokemonpokethelper.data.RemoteRepo
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddCollectionScreen(onDone: () -> Unit) {
-    var name    by remember { mutableStateOf("") }
-    var saving  by remember { mutableStateOf(false) }
-    val scope   = rememberCoroutineScope()
+fun AddCollectionScreen(
+    userId: String,
+    onDone: () -> Unit
+) {
+    var name by remember { mutableStateOf("") }
+    var saving by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
+    val scope = rememberCoroutineScope()
 
     Column(
         Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(stringResource(R.string.new_collection), style = MaterialTheme.typography.headlineSmall)
 
         OutlinedTextField(
-            value       = name,
+            value = name,
             onValueChange = { name = it },
-            label       = { Text(stringResource(R.string.collection_name)) },
-            modifier    = Modifier.fillMaxWidth()
+            label = { Text(stringResource(R.string.collection_name)) },
+            modifier = Modifier.fillMaxWidth()
         )
+
+        errorMessage?.let {
+            Text(it, color = MaterialTheme.colorScheme.error)
+        }
+
+        Spacer(Modifier.height(8.dp))
 
         Button(
             onClick = {
                 saving = true
+                errorMessage = null
+
                 scope.launch {
                     try {
-                        FirestoreRepo.addCollection(name)   // suspend here
-                        Log.d("AddCollection", "success")
-                    } catch(e: Exception) {
-                        Log.e("AddCollection", "failed", e)
+                        RemoteRepo.createCollection(userId = userId, name = name.trim())
+                        onDone()
+                    } catch (e: Exception) {
+                        errorMessage = e.localizedMessage ?: "An error occurred"
+                        saving = false
                     }
-                    saving = false
-                    onDone()   // <— this tells NavController to go back
                 }
             },
-            enabled  = name.isNotBlank() && !saving,
+            enabled = name.isNotBlank() && !saving,
             modifier = Modifier.align(Alignment.End)
         ) {
             Text(if (saving) "Saving…" else "Create")

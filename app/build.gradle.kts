@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,13 +53,11 @@ dependencies {
     // Navigation
     implementation(libs.navigation.compose)
 
-    // Firebase BOM
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.storage.ktx)
-    implementation(libs.firebase.firestore.ktx)
-    //Play-Services
-    implementation(libs.kotlinx.coroutines.play.services)
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

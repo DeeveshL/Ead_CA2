@@ -1,37 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\",
+  "WorkspaceRootPath": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\models\\collectioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\collectioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\models\\cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\controllers\\collectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:controllers\\collectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\deevesh\\androidstudioprojects\\pokemonpokethelper\\ead2_ca2_pokemon\\migrations\\20250430154613_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\models\\collectioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\collectioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\models\\cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\controllers\\collectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:controllers\\collectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|c:\\users\\james\\desktop\\ead2_proj2\\ead_ca2\\ead2_ca2_pokemon\\migrations\\20250430154613_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65E7BDDE-5989-4AF9-B1C4-D30329C9FF32}|EAD2_CA2_POKEMON.csproj|solutionrelative:migrations\\20250430154613_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,19 +42,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "Name": "ST:0:0:{bdada759-5db7-402f-96e3-402b17c8c5b4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "20250430154613_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Migrations\\20250430154613_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Migrations\\20250430154613_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20250430154613_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Migrations\\20250430154613_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Migrations\\20250430154613_InitialCreate.cs",
               "RelativeToolTip": "Migrations\\20250430154613_InitialCreate.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -62,11 +66,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AppDBContext.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\AppDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\AppDBContext.cs",
               "RelativeDocumentMoniker": "Models\\AppDBContext.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\AppDBContext.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\AppDBContext.cs",
               "RelativeToolTip": "Models\\AppDBContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -74,23 +78,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Program.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T15:06:55.972Z"
+              "WhenOpened": "2025-04-30T15:06:55.972Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CollectionCard.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\CollectionCard.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\CollectionCard.cs",
               "RelativeDocumentMoniker": "Models\\CollectionCard.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\CollectionCard.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\CollectionCard.cs",
               "RelativeToolTip": "Models\\CollectionCard.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -98,11 +103,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Collection.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\Collection.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\Collection.cs",
               "RelativeDocumentMoniker": "Models\\Collection.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\Collection.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\Collection.cs",
               "RelativeToolTip": "Models\\Collection.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -110,11 +115,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Cards.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\Cards.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\Cards.cs",
               "RelativeDocumentMoniker": "Models\\Cards.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Models\\Cards.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Models\\Cards.cs",
               "RelativeToolTip": "Models\\Cards.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -122,11 +127,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CollectionsController.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Controllers\\CollectionsController.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Controllers\\CollectionsController.cs",
               "RelativeDocumentMoniker": "Controllers\\CollectionsController.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Controllers\\CollectionsController.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Controllers\\CollectionsController.cs",
               "RelativeToolTip": "Controllers\\CollectionsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -134,13 +139,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CardsController.cs",
-              "DocumentMoniker": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Controllers\\CardsController.cs",
+              "DocumentMoniker": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Controllers\\CardsController.cs",
               "RelativeDocumentMoniker": "Controllers\\CardsController.cs",
-              "ToolTip": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\Controllers\\CardsController.cs",
+              "ToolTip": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\Controllers\\CardsController.cs",
               "RelativeToolTip": "Controllers\\CardsController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwE0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwB8AAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T14:30:39.709Z",
               "EditorCaption": ""

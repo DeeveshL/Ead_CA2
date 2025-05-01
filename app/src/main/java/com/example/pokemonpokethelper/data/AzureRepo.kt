@@ -1,27 +1,33 @@
 package com.example.pokemonpokethelper.data
 
-import com.example.pokemonpokethelper.network.*
+import com.example.pokemonpokethelper.model.ModelCollection
+import com.example.pokemonpokethelper.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 object AzureRepo {
-    private val api = RetrofitClient.api
+    private val api = RetrofitClient.apiService
 
-    suspend fun getCollections(token: String, userId: String) =
-        api.getCollections("Bearer $token", userId)
+    suspend fun getCollections(userId: String) = withContext(Dispatchers.IO) {
+        api.getCollections(userId)
+    }
 
-    suspend fun createCollection(token: String, userId: String, name: String) =
-        api.createCollection("Bearer $token", userId, CreateCollectionRequest(name))
+    suspend fun createCollection(userId: String, name: String) = withContext(Dispatchers.IO) {
+        val newCollection = ModelCollection(
+            id = UUID.randomUUID().toString(),
+            name = name,
+            userId = userId
+        )
+        api.createCollection(userId, newCollection)
+    }
 
-    suspend fun getCollection(token: String, userId: String, name: String) =
-        api.getCollection("Bearer $token", userId, name)
+    suspend fun getCollection(userId: String, name: String) = withContext(Dispatchers.IO) {
+        api.getCollection(userId, name)
+    }
 
-    suspend fun addCardToCollection(
-        token: String,
-        userId: String,
-        collectionName: String,
-        cardId: String
-    ) = api.addCardToCollection("Bearer $token", userId, collectionName, cardId)
-
+    suspend fun addCardToCollection(userId: String, collectionName: String, cardId: String) =
+        withContext(Dispatchers.IO) {
+            api.addCardToCollection(userId, collectionName, cardId)
+        }
 }
-

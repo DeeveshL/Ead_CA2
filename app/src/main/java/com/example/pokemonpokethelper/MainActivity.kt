@@ -1,46 +1,36 @@
 package com.example.pokemonpokethelper
 
-import AppNavigator
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.navigation.compose.*
+import androidx.core.content.edit
+import com.example.pokemonpokethelper.ui.AppNavigator
 import com.example.pokemonpokethelper.ui.theme.PokemonPoketHelperTheme
+import java.util.UUID
 
+fun getOrCreateUserId(context: Context): String {
+    val prefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val existing = prefs.getString("currentUserId", null)
+    return existing ?: run {
+        val newId = UUID.randomUUID().toString()
+        prefs.edit {
+            putString("currentUserId", newId)
+        }
+        newId
+    }
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val currentUserId = getOrCreateUserId(this)
+
         setContent {
             PokemonPoketHelperTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AppNavigator()
-                }
+                AppNavigator(currentUserId = currentUserId)
             }
         }
     }
 }
-
-
-
-
-
-@Composable
-fun HomeScreen() {
-    // Your existing “Hello, World!” or PokémonGreeting screen goes here
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Hello, World!", style = MaterialTheme.typography.headlineMedium)
-    }
-}
-

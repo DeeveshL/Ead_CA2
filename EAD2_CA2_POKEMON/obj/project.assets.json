@@ -3635,23 +3635,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Deevesh\\.nuget\\packages\\": {},
+    "C:\\Users\\James\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\EAD2_CA2_POKEMON.csproj",
+      "projectUniqueName": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\EAD2_CA2_POKEMON.csproj",
       "projectName": "EAD2_CA2_POKEMON",
-      "projectPath": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\EAD2_CA2_POKEMON.csproj",
-      "packagesPath": "C:\\Users\\Deevesh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Deevesh\\AndroidStudioProjects\\Pokemonpokethelper\\EAD2_CA2_POKEMON\\obj\\",
+      "projectPath": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\EAD2_CA2_POKEMON.csproj",
+      "packagesPath": "C:\\Users\\James\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\James\\Desktop\\EAD2_PROJ2\\Ead_CA2\\EAD2_CA2_POKEMON\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Deevesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\James\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3677,9 +3677,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -3715,24 +3715,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.15, 8.0.15]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.15, 8.0.15]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.15, 8.0.15]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.15, 8.0.15]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -3741,7 +3723,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

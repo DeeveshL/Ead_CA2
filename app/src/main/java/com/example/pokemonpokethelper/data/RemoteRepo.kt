@@ -1,52 +1,63 @@
 package com.example.pokemonpokethelper.data
 
-import com.example.pokemonpokethelper.network.*
+import com.example.pokemonpokethelper.model.*
+import com.example.pokemonpokethelper.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.http.DELETE
-import retrofit2.http.Header
-import retrofit2.http.Path
+import java.util.*
 
 object RemoteRepo {
-    private val api = RetrofitClient.api
+    private val apiService = RetrofitClient.apiService
 
-    // ——— Collections ——————————————————————————————
+    // Collections
+    suspend fun getCollections(userId: String): List<ModelCollection> =
+        withContext(Dispatchers.IO) { apiService.getCollections(userId) }
 
-    /** GET  /api/users/{userId}/collections */
-    suspend fun fetchCollections(token: String, userId: String): List<CollectionDto> =
+    suspend fun createCollection(userId: String, name: String): ModelCollection =
         withContext(Dispatchers.IO) {
-            api.getCollections("Bearer $token", userId)
+            apiService.createCollection(
+                userId,
+                ModelCollection(
+                    id = UUID.randomUUID().toString(),
+                    name = name,
+                    userId = userId
+                )
+            )
         }
 
-    /** POST /api/users/{userId}/collections */
-    suspend fun addCollection(token: String, userId: String, name: String): CollectionDto =
-        withContext(Dispatchers.IO) {
-            api.createCollection("Bearer $token", userId, CreateCollectionRequest(name))
-        }
+    // Cards
+    suspend fun getAllCards(): List<Card> =
+        withContext(Dispatchers.IO) { apiService.getAllCards() }
 
-    // ——— Cards ——————————————————————————————————————
+    suspend fun searchCards(
+        name: String? = null,
+        expansion: String? = null,
+        expansionId: Int? = null
+    ): List<Card> = withContext(Dispatchers.IO) {
+        apiService.searchCards(name, expansion, expansionId)
+    }
 
-    /** GET  /api/users/{userId}/collections/{collectionName}/cards */
-    suspend fun fetchCards(token: String, userId: String, collectionName: String) =
-        api.getCards("Bearer $token", userId, collectionName)
-
-    /** POST /api/users/{userId}/collections/{collectionName}/cards */
-    suspend fun addCard(
-        token: String,
+    suspend fun addCardToCollection(
         userId: String,
         collectionName: String,
         cardId: String
     ) = withContext(Dispatchers.IO) {
-        api.addCardToCollection("Bearer $token", userId, collectionName, cardId)
+        apiService.addCardToCollection(
+            userId,
+            collectionName,
+            cardId
+        )
     }
 
-    // DELETE /api/users/{userId}/collections/{collectionName}/cards/{cardId}
-    @DELETE("users/{userId}/collections/{collectionName}/cards/{cardId}")
-    suspend fun deleteCard(
-        @Header("Authorization") bearer: String,
-        @Path("userId")         userId: String,
-        @Path("collectionName") collectionName: String,
-        @Path("cardId")         cardId: String
-    ) {
-    }
+    suspend fun createCard(name: String, expansion: String, expansionId: Int): Card =
+        withContext(Dispatchers.IO) {
+            val newCard = Card(
+                id = UUID.randomUUID().toString(),
+                name = name,
+                expansion = expansion,
+                expansionId = expansionId
+            )
+            RetrofitClient.apiService.createCard(newCard)
+        }
+
 }

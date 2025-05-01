@@ -1,51 +1,48 @@
-
 package com.example.pokemonpokethelper.network
 
+import com.example.pokemonpokethelper.model.*
 import retrofit2.http.*
-import com.example.pokemonpokethelper.network.CollectionDto
-import com.example.pokemonpokethelper.network.AddCollectionRequest
-
-
 
 interface ApiService {
-    // GET  /api/users/{UserId}/collections
-    @GET("users/{userId}/collections")
+
+
+
+    @GET("api/users/{userId}/collections")
     suspend fun getCollections(
-        @Header("Authorization") bearer: String,
         @Path("userId") userId: String
-    ): List<CollectionDto>
+    ): List<ModelCollection>
 
-    @GET("users/{userId}/collections/{collectionName}/cards")
-    suspend fun getCards(
-        @Header("Authorization") bearer: String,
-        @Path("userId") userId: String,
-        @Path("collectionName") collectionName: String
-    ): List<CardDto>
-
-    // POST /api/users/{UserId}/collections
-    @POST("users/{userId}/collections")
+    @POST("api/users/{userId}/collections")
     suspend fun createCollection(
-        @Header("Authorization") bearer: String,
         @Path("userId") userId: String,
-        @Body payload: CreateCollectionRequest
-    ): CollectionDto
+        @Body collection: ModelCollection
+    ): ModelCollection
 
-    // GET  /api/users/{UserId}/collections/{collectionName}
-    @GET("users/{userId}/collections/{collectionName}")
+    @GET("api/users/{userId}/collections/{collectionName}")
     suspend fun getCollection(
-        @Header("Authorization") bearer: String,
         @Path("userId") userId: String,
         @Path("collectionName") collectionName: String
-    ): CollectionDto
+    ): ModelCollection
 
-    // POST /api/users/{UserId}/collections/{collectionName}/cards
-    // Body is a raw GUID string unless you wrapped it
-    @POST("users/{userId}/collections/{collectionName}/cards")
+    @POST("api/users/{userId}/collections/{collectionName}/cards")
     suspend fun addCardToCollection(
-        @Header("Authorization") bearer: String,
         @Path("userId") userId: String,
         @Path("collectionName") collectionName: String,
         @Body cardId: String
     )
-}
 
+    @GET("api/cards")
+    suspend fun getAllCards(): List<Card>
+
+    @GET("api/cards/search")
+    suspend fun searchCards(
+        @Query("name") name: String? = null,
+        @Query("expansion") expansion: String? = null,
+        @Query("expansionId") expansionId: Int? = null
+    ): List<Card>
+
+    @POST("api/cards")
+    suspend fun createCard(
+        @Body card: Card
+    ): Card
+}

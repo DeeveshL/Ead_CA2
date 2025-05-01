@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EAD2_CA2_POKEMON")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+722f7c4de07e8f3197209765bacadaf0b9d575d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9463f7c3e235acb263fe0ea2f8fd2684a78e50e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("EAD2_CA2_POKEMON")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EAD2_CA2_POKEMON")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

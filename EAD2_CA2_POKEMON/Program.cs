@@ -7,7 +7,6 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddUserSecrets<Program>();
 }
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -19,7 +18,11 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
